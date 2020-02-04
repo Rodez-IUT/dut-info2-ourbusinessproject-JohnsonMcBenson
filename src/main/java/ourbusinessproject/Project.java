@@ -2,16 +2,22 @@ package ourbusinessproject;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class Project {
 
+    @Id
+    @GeneratedValue
+    private Long id;
+
     @NotEmpty
-    @Column
     private String title;
 
-    @Column
+
+
     private String description;
 
     public String getTitle() {
@@ -31,5 +37,7 @@ public class Project {
     }
 
 
-
+    public Long getId() {
+        return id;
+    }
 }

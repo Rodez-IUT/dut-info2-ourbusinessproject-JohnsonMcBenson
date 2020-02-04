@@ -2,6 +2,8 @@ package ourbusinessproject;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -9,21 +11,21 @@ import javax.validation.constraints.Size;
 @Entity
 public class Enterprise {
 
+    @Id
+    @GeneratedValue
+    private Long id;
+
     @NotEmpty
-    @Column
     private String name;
 
     @NotEmpty
     @Size(min = 10, max = 99999)
-    @Column
     private String description;
 
-    @Column
     @NotEmpty
     private  String contactName;
 
     @NotEmpty
-    @Column
     @Email
     private String contactEmail;
 
@@ -58,5 +60,9 @@ public class Enterprise {
 
     public void setContactEmail(String contactEmail) {
         this.contactEmail = contactEmail;
+    }
+
+    public Long getId() {
+        return id;
     }
 }
