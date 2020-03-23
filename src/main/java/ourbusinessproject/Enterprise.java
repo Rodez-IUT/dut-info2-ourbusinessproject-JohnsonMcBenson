@@ -29,6 +29,16 @@ public class Enterprise {
     @Email
     private String contactEmail;
 
+    public Project[] getProjects() {
+        return projects;
+    }
+
+    public void setProjects(Project[] projects) {
+        this.projects = projects;
+    }
+
+    private Project[] projects;
+
 
     public String getName() {
         return name;
