@@ -1,11 +1,7 @@
 package ourbusinessproject;
 
-import org.springframework.boot.test.mock.mockito.MockBean;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -13,45 +9,44 @@ import javax.validation.constraints.NotNull;
 public class Project {
 
     @Id
-    @GeneratedValue
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
     @NotEmpty
     private String title;
-
-    @NotNull
+    private String description;
+    @ManyToOne(cascade=CascadeType.ALL)
     private Enterprise enterprise;
 
-    public Enterprise getEnterprise() {
-        return enterprise;
-    }
+    public Project() {}
 
-    public void setEnterprise(Enterprise enterprise) {
+    public Project(Enterprise enterprise) {
         this.enterprise = enterprise;
+        this.enterprise.projects.add(this);
     }
-
-
-
-    private String description;
 
     public String getTitle() {
         return title;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }
-
     public String getDescription() {
         return description;
     }
-
     public void setDescription(String description) {
         this.description = description;
     }
-
-
     public Long getId() {
         return id;
+    }
+
+    public void setEnterprise(Enterprise enterprise) {
+        this.enterprise = enterprise;
+        this.enterprise.projects.add(this);
+    }
+
+    public Enterprise getEnterprise() {
+        return enterprise;
     }
 }

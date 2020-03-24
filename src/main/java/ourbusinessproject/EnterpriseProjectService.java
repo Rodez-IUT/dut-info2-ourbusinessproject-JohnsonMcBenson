@@ -20,8 +20,13 @@ public class EnterpriseProjectService {
     }
 
     public void save(Project project) {
+
+        save(project.getEnterprise());
+
         entityManager.persist(project);
+
         entityManager.flush();
+
     }
 
     public void save(Enterprise enterprise ){
