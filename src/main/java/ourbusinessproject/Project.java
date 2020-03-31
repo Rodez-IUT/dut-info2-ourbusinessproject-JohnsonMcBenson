@@ -1,20 +1,35 @@
 package ourbusinessproject;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 
 @Entity
 public class Project {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @GeneratedValue
+    private Long id;
+
     @NotEmpty
     private String title;
     private String description;
-    @NotNull @ManyToOne(cascade=CascadeType.ALL)
+
+    @NotNull
+    @ManyToOne
     private Enterprise enterprise;
+
+    public Project() {}
+
+    public Project(String title, String description, Enterprise enterprise) {
+        this.title = title;
+        this.description = description;
+        setEnterprise(enterprise);
+    }
 
     public String getTitle() {
         return title;
@@ -37,9 +52,15 @@ public class Project {
     }
 
     public void setEnterprise(Enterprise enterprise) {
+        if (this.enterprise != null) {
+            this.enterprise.getProjects().remove(this);
+        }
         this.enterprise = enterprise;
-        if (enterprise != null){
-            this.enterprise.addProject(this);
+        if (this.enterprise != null) {
+            if (this.enterprise.getProjects() == null) {
+                this.enterprise.setProjects(new ArrayList<>());
+            }
+            this.enterprise.getProjects().add(this);
         }
     }
 
