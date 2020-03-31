@@ -21,6 +21,7 @@ public class InitializationService {
         this.enterpriseProjectService = enterpriseProjectService;
     }
 
+    //Si parmi les objets instantiés un objet est invalide, tous les objets sont invalidés par l'annotation Transactional
     @Transactional
     public void initProjects() {
         initEnterprise1();
